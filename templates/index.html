@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>PasswordMan</title>
+  </head>
+  <style>
+    body {
+      background-color: #e5e5ea; 
+      font-family: Arial, sans-serif;
+    }
+    
+   
+  </style>
+  <body>
+    <div style="text-align:center">
+    <h1>PasswordMan</h1>
+    <h3>Saved Passwords</h3>
+    <table style="border:1px solid black;margin-left:auto;margin-right:auto;"border="1" cellpadding="5" cellspacing="0">
+      <tr>
+        <th>Service</th>
+        <th>Username</th>
+        <th>Password</th>
+        <th>Options</th>
+      </tr>
+      {% for password in passwords %}
+      <tr>
+        <td>{{ password[1] }}</td>
+        <td>{{ password[2] }}</td>
+        <td>{{ password[3] }}</td>
+        <td>
+          <form action="{{ url_for('delete_password', id=password[0]) }}" method="post">
+            <input type="submit" value="Delete">
+          </form>
+         
+        <form action="{{ url_for('update_password', id=password[0]) }}" method="post" class="update-form">
+          <label for="password">Update</label>
+          <input type="password" name="new_password" placeholder="New password" required>
+          <input type="submit" value="Update">
+      </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+    <a href="{{ url_for('add_password') }}">Add new password</a>
+  </div>
+  <script>
+    const updateButtons = document.querySelectorAll('.update-button');
+    updateButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const updateForm = button.closest('tr').querySelector('.update-form');
+        updateForm.style.display = updateForm.style.display === 'none' ? 'block' : 'none';
+      });
+    });
+  </script>
+  </body>
+</html>

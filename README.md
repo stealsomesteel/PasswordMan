@@ -1,2 +1,3 @@
 # techprojects
-Projects that are done using the new techs that I have learn
+Simple Password Manager done using flask
+
